@@ -102,7 +102,9 @@ namespace lab3
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory[0..^25], "errors.txt");
+                using StreamWriter sr = new StreamWriter(path, true);
+                sr.Write(ex.Message);
             }
         }
 
@@ -138,7 +140,9 @@ namespace lab3
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory[0..^25], "errors.txt");
+                using StreamWriter sr = new StreamWriter(path, true);
+                sr.Write(ex.Message);
             }
         }
 
@@ -169,7 +173,9 @@ namespace lab3
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory[0..^25], "errors.txt");
+                using StreamWriter sr = new StreamWriter(path, true);
+                sr.Write(ex.Message);
             }
             return Convert.ToBase64String(encryptedData);
         }
@@ -206,7 +212,9 @@ namespace lab3
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory[0..^25], "errors.txt");
+                using StreamWriter sr = new StreamWriter(path, true);
+                sr.Write(ex.Message);
             }
             return System.Text.Encoding.UTF8.GetString(decryptedData);
         }
@@ -242,7 +250,9 @@ namespace lab3
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory[0..^25], "errors.txt");
+                using StreamWriter sr = new StreamWriter(path, true);
+                sr.Write(ex.Message);
             }
         }
 
@@ -263,7 +273,9 @@ namespace lab3
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory[0..^25], "errors.txt");
+                using StreamWriter sr = new StreamWriter(path, true);
+                sr.Write(ex.Message);
             }
         }
     }
