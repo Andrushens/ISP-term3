@@ -68,7 +68,7 @@ namespace lab3
                                         Directory.CreateDirectory(zipsDirName);
                                     }
                                     Compress(file, new DirectoryInfo(zipsDirName));
-                                    Decompress(new FileInfo(file.FullName[0..^3] + "gz"), new DirectoryInfo(zipsDirName));
+                                    Decompress(new FileInfo(Path.ChangeExtension(file.FullName, "gz")), new DirectoryInfo(zipsDirName));
                                     archivedFiles.Add(file);
                                 }
                             }
@@ -116,7 +116,7 @@ namespace lab3
 
             try
             {
-                decompressedFile = new FileInfo(arcFileName[0..^2] + "txt");
+                decompressedFile = new FileInfo(Path.ChangeExtension(arcFileName, "txt"));
 
                 using (FileStream sourceStream = new FileStream(arcFileName, FileMode.Open))
                 {
