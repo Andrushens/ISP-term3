@@ -6,7 +6,7 @@ namespace lab3
 {
     public class JsonParser : IConfigParser
     {
-        public T Parse<T> (string jsonConfigFileName) where T : new()
+        public T Parse<T>(string jsonConfigFileName) where T : new()
         {
             T options = new T();
 
@@ -14,26 +14,9 @@ namespace lab3
             {
                 string jsonInner = File.ReadAllText(jsonConfigFileName);
                 JsonDocument jDoc = JsonDocument.Parse(jsonInner);
-                var el = jDoc.RootElement;
-
-                foreach(var prop in typeof(FileWatcherOptions).GetProperties())
-                {
-                    if(prop.Name == typeof(T).Name)
-                    {
-                        el = el.GetProperty("FileWatcherOptions");
-                        foreach(var node in el.EnumerateObject())
-                        {
-                            if(node.Name == typeof(T).Name)
-                            {
-                                el = node.Value;
-                                break;
-                            }
-                        }
-                        break;
-                    }
-                }
-                
-                options = JsonSerializer.Deserialize<T>(el.GetRawText());
+                JsonElement root = jDoc.RootElement.GetProperty("FileWatcherOptions");
+                JsonElement prop = root.GetProperty(typeof(T).Name);
+                options = JsonSerializer.Deserialize<T>(prop.GetRawText());
             }
             catch (Exception ex)
             {
