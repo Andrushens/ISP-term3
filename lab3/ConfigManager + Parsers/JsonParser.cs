@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Text.Json;
 
 namespace lab3
@@ -18,16 +16,28 @@ namespace lab3
                 JsonDocument jDoc = JsonDocument.Parse(jsonInner);
                 var el = jDoc.RootElement;
 
-                if (typeof(FileWatcherOptions).GetProperties().Any(prop => prop.Name == typeof(T).Name))
+                foreach(var prop in typeof(FileWatcherOptions).GetProperties())
                 {
-                    el = el.GetProperty("FileWatcherOptions");
+                    if(prop.Name == typeof(T).Name)
+                    {
+                        el = el.GetProperty("FileWatcherOptions");
+                        foreach(var node in el.EnumerateObject())
+                        {
+                            if(node.Name == typeof(T).Name)
+                            {
+                                el = node.Value;
+                                break;
+                            }
+                        }
+                        break;
+                    }
                 }
-                el = el.EnumerateObject().Single(pr => pr.Name == typeof(T).Name).Value;
+                
                 options = JsonSerializer.Deserialize<T>(el.GetRawText());
             }
             catch (Exception ex)
             {
-                string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory[0..^25], "errors.txt");
+                string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "errors.txt");
                 using StreamWriter sr = new StreamWriter(path, true);
                 sr.Write(ex.Message);
             }

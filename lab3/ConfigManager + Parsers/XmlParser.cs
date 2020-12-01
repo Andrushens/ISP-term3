@@ -36,10 +36,11 @@ namespace lab3
             }
             catch (Exception ex)
             {
-                string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory[0..^25], "errors.txt");
+                string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "errors.txt");
                 using StreamWriter sr = new StreamWriter(path, true);
                 sr.Write(ex.Message);
             }
+
             return options;
         }
 

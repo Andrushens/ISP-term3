@@ -7,11 +7,11 @@ namespace lab3
     {
         static void Main(string[] args)
         {
-            string workDirName = AppDomain.CurrentDomain.BaseDirectory[0..^25];
+            string workDirName = AppDomain.CurrentDomain.BaseDirectory;
             string xmlConfigFileName = Path.Join(workDirName, "config.xml");
             string jsonConfigFileName = Path.Join(workDirName, "appsettings.json");
-            
             FileWatcherOptions options = new FileWatcherOptions();
+            
             ConfigManager configManager = new ConfigManager(new XmlParser());
             options.CryptographyOptions = configManager.GetOptions<CryptographyOptions>(xmlConfigFileName);
 

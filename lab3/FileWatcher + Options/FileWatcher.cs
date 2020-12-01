@@ -17,14 +17,10 @@ namespace lab3
 
         public FileWatcher(FileWatcherOptions options)
         {
-            sourceDirectory = new DirectoryInfo(options.StorageOptions.SourceDirectory
-                ?? @"C:\Users\thela\source\repos\953506\term3\dot_net\lab3\SourceDirectory");
-            targetDirectory = new DirectoryInfo(options.StorageOptions.TargetDirectory
-                ?? @"C:\Users\thela\source\repos\953506\term3\dot_net\lab3\TargetDirectory");
-            key = options.CryptographyOptions.Key
-                ?? System.Text.Encoding.UTF8.GetBytes("1q2w3e4r5t6y7u8i");
-            iv = options.CryptographyOptions.Iv
-                ?? System.Text.Encoding.UTF8.GetBytes("9O8I7U6Y5t4r3e2W");
+            this.sourceDirectory = new DirectoryInfo(options.StorageOptions.SourceDirectory);
+            this.targetDirectory = new DirectoryInfo(options.StorageOptions.TargetDirectory);
+            this.key = options.CryptographyOptions.Key;
+            this.iv = options.CryptographyOptions.Iv;
         }
 
         public void StartProcess()
@@ -101,7 +97,7 @@ namespace lab3
             }
             catch (Exception ex)
             {
-                string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory[0..^25], "errors.txt");
+                string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "errors.txt");
                 using StreamWriter sr = new StreamWriter(path, true);
                 sr.Write(ex.Message);
             }
@@ -139,7 +135,7 @@ namespace lab3
             }
             catch (Exception ex)
             {
-                string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory[0..^25], "errors.txt");
+                string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "errors.txt");
                 using StreamWriter sr = new StreamWriter(path, true);
                 sr.Write(ex.Message);
             }
@@ -248,7 +244,7 @@ namespace lab3
             }
             catch (Exception ex)
             {
-                string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory[0..^25], "errors.txt");
+                string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "errors.txt");
                 using StreamWriter sr = new StreamWriter(path, true);
                 sr.Write(ex.Message);
             }
