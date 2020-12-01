@@ -21,7 +21,6 @@ namespace lab3
                 ?? @"C:\Users\thela\source\repos\953506\term3\dot_net\lab3\SourceDirectory");
             targetDirectory = new DirectoryInfo(options.StorageOptions.TargetDirectory
                 ?? @"C:\Users\thela\source\repos\953506\term3\dot_net\lab3\TargetDirectory");
-
             key = options.CryptographyOptions.Key
                 ?? System.Text.Encoding.UTF8.GetBytes("1q2w3e4r5t6y7u8i");
             iv = options.CryptographyOptions.Iv
@@ -151,32 +150,24 @@ namespace lab3
             byte[] sourceData = null;
             byte[] encryptedData = null;
 
-            try
-            {
-                Aes Aes = Aes.Create();
-                
-                using (FileStream fs = File.OpenRead(file.FullName))
-                {
-                    sourceData = new byte[fs.Length];
-                    fs.Read(sourceData, 0, sourceData.Length);
-                }
+            Aes Aes = Aes.Create();
 
-                using (MemoryStream memStream = new MemoryStream())
+            using (FileStream fs = File.OpenRead(file.FullName))
+            {
+                sourceData = new byte[fs.Length];
+                fs.Read(sourceData, 0, sourceData.Length);
+            }
+
+            using (MemoryStream memStream = new MemoryStream())
+            {
+                using (CryptoStream encrypStream = new CryptoStream(memStream, Aes.CreateEncryptor(key, iv), CryptoStreamMode.Write))
                 {
-                    using (CryptoStream encrypStream = new CryptoStream(memStream, Aes.CreateEncryptor(key, iv), CryptoStreamMode.Write))
-                    {
-                        encrypStream.Write(sourceData, 0, sourceData.Length);
-                        encrypStream.FlushFinalBlock();
-                        encryptedData = memStream.ToArray();
-                    }
+                    encrypStream.Write(sourceData, 0, sourceData.Length);
+                    encrypStream.FlushFinalBlock();
+                    encryptedData = memStream.ToArray();
                 }
             }
-            catch (Exception ex)
-            {
-                string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory[0..^25], "errors.txt");
-                using StreamWriter sr = new StreamWriter(path, true);
-                sr.Write(ex.Message);
-            }
+
             return Convert.ToBase64String(encryptedData);
         }
 
@@ -186,36 +177,29 @@ namespace lab3
             byte[] decryptedData = null;
             byte[] buffer = new byte[1024];
 
-            try
+            using (StreamReader readS = new StreamReader(archivedFile.FullName))
             {
-                using (StreamReader readS = new StreamReader(archivedFile.FullName))
-                {
-                    encryptedData = Convert.FromBase64String(readS.ReadToEnd());
-                }
-                Aes Aes = Aes.Create();
+                encryptedData = Convert.FromBase64String(readS.ReadToEnd());
+            }
 
-                using (MemoryStream memStream = new MemoryStream(encryptedData))
+            Aes Aes = Aes.Create();
+
+            using (MemoryStream memStream = new MemoryStream(encryptedData))
+            {
+                using (CryptoStream decrypStream = new CryptoStream(memStream, Aes.CreateDecryptor(key, iv), CryptoStreamMode.Read))
                 {
-                    using (CryptoStream decrypStream = new CryptoStream(memStream, Aes.CreateDecryptor(key, iv), CryptoStreamMode.Read))
+                    using (MemoryStream tempMem = new MemoryStream())
                     {
-                        using (MemoryStream tempMem = new MemoryStream())
-                        {
 
-                            while ((decrypStream.Read(buffer, 0, buffer.Length)) > 0)
-                            {
-                                tempMem.Write(buffer, 0, buffer.Length);
-                            }
-                            decryptedData = tempMem.ToArray();
+                        while ((decrypStream.Read(buffer, 0, buffer.Length)) > 0)
+                        {
+                            tempMem.Write(buffer, 0, buffer.Length);
                         }
+                        decryptedData = tempMem.ToArray();
                     }
                 }
             }
-            catch (Exception ex)
-            {
-                string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory[0..^25], "errors.txt");
-                using StreamWriter sr = new StreamWriter(path, true);
-                sr.Write(ex.Message);
-            }
+
             return System.Text.Encoding.UTF8.GetString(decryptedData);
         }
 
@@ -225,34 +209,25 @@ namespace lab3
             string[] fileNameParts = file.Name.Split("_");
             string targetFileName;
 
-            try
+            if (!Directory.Exists(dirName))
             {
+                Directory.CreateDirectory(dirName);
+            }
+
+            for (int i = 1; i <= 3; ++i)
+            {
+                dirName = Path.Join(dirName, fileNameParts[i]);
+
                 if (!Directory.Exists(dirName))
                 {
                     Directory.CreateDirectory(dirName);
                 }
-
-                for (int i = 1; i <= 3; ++i)
-                {
-                    dirName = Path.Join(dirName, fileNameParts[i]);
-
-                    if (!Directory.Exists(dirName))
-                    {
-                        Directory.CreateDirectory(dirName);
-                    }
-                }
-                targetFileName = Path.Join(dirName, file.Name);
-
-                if (!File.Exists(targetFileName))
-                {
-                    File.Copy(file.FullName, targetFileName);
-                }
             }
-            catch (Exception ex)
+            targetFileName = Path.Join(dirName, file.Name);
+
+            if (!File.Exists(targetFileName))
             {
-                string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory[0..^25], "errors.txt");
-                using StreamWriter sr = new StreamWriter(path, true);
-                sr.Write(ex.Message);
+                File.Copy(file.FullName, targetFileName);
             }
         }
 
