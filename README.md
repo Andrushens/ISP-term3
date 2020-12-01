@@ -7,7 +7,7 @@
   
   2) Класс FileWatcherOptions - Представляет класс общих настроек для FileWatcher'а и содержит в себе объекты всех других классов конфигураций(StorageOptions - информация о Source/Target папках и CryptographyOptions - информация для шифрования).
   
-  3) Класс ConfigManager - на основе выбранного парсера(XmlParser или JsonParser, реализующие один интерфейс IConfigParser) парсит .xml или .json файлы соответственно. Имеет только один метод T GetOptions<T>(configFilePath). Если в итоге от него был получен нулевой указатель, настройки устанавливаются по умолчанию.
+  3) Класс ConfigManager - на основе выбранного парсера(XmlParser или JsonParser, реализующие один интерфейс IConfigParser) парсит .xml или .json файлы соответственно. Имеет только один метод T GetOptions<<T>T>(configFilePath). Если в итоге от него был получен нулевой указатель, настройки устанавливаются по умолчанию.
  
   4) Классы XmlParser и JsonParser - для десериализации файлов config.xml или appsettings.json соответственно.
   
