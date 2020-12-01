@@ -14,12 +14,17 @@ namespace lab3
             {
                 string jsonInner = File.ReadAllText(jsonConfigFileName);
                 JsonDocument jDoc = JsonDocument.Parse(jsonInner);
-                JsonElement root = jDoc.RootElement.GetProperty(typeof(FileWatcherOptions).Name);
-                JsonElement prop = root.GetProperty(typeof(T).Name);
+                JsonElement prop = jDoc.RootElement.GetProperty(typeof(FileWatcherOptions).Name);
+                
+                if(typeof(T)!=typeof(FileWatcherOptions))
+                {
+                    prop = prop.GetProperty(typeof(T).Name);
+                }
                 options = JsonSerializer.Deserialize<T>(prop.GetRawText());
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "errors.txt");
                 using StreamWriter sr = new StreamWriter(path, true);
                 sr.Write(ex.Message);
