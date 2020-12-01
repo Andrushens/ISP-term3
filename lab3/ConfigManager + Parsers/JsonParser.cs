@@ -14,7 +14,7 @@ namespace lab3
             {
                 string jsonInner = File.ReadAllText(jsonConfigFileName);
                 JsonDocument jDoc = JsonDocument.Parse(jsonInner);
-                JsonElement root = jDoc.RootElement.GetProperty("FileWatcherOptions");
+                JsonElement root = jDoc.RootElement.GetProperty(typeof(FileWatcherOptions).Name);
                 JsonElement prop = root.GetProperty(typeof(T).Name);
                 options = JsonSerializer.Deserialize<T>(prop.GetRawText());
             }
