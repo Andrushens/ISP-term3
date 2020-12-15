@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<FileWatcherOptions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <StorageOptions>
+      <SourceDirectory>123C:\Users\thela\source\repos\953506\term3\dot_net\lab3\SourceDirectory</SourceDirectory>
+      <TargetDirectory>C:\Users\thela\source\repos\953506\term3\dot_net\lab3\TargetDirectory</TargetDirectory>
+    </StorageOptions>
+    <CryptographyOptions>
+      <Key>0123456789ABCDEFfgaasd</Key>
+      <Iv>012345435kmlKDSffdsfsd</Iv>
+    </CryptographyOptions>
+</FileWatcherOptions>

@@ -1,0 +1,13 @@
+﻿{
+    "FileWatcherOptions": {
+        "StorageOptions": {
+            "SourceDirectory": "C:\\Users\\thela\\source\\repos\\953506\\term3\\dot_net\\lab3\\SourceDirectory",
+            "TargetDirectory": "C:\\Users\\thela\\source\\repos\\953506\\term3\\dot_net\\lab3\\TargetDirectory"
+        },
+
+        "CryptographyOptions": {
+            "Key": "012345435kmlKDSffdsfsd",
+            "Iv": "012345435kmlKDSffdsfsd"
+        }
+    }
+}

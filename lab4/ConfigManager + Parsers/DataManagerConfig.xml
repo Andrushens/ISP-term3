@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<DataManagerOptions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DataBaseOptions>  
+    <ConnectionString>Server = KOROLIVA; Database = AdventureWorks2019; Trusted_Connection = True;</ConnectionString>
+  </DataBaseOptions>
+  <StorageOptions>
+    <SourceDirectory>C:\Users\thela\source\repos\953506\term3\dot_net\lab4\bin\Debug\netcoreapp3.1</SourceDirectory>
+    <TargetDirectory>C:\Users\thela\source\repos\953506\term3\dot_net\lab3\SourceDirectory</TargetDirectory>
+  </StorageOptions>
+</DataManagerOptions>

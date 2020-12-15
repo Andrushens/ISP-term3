@@ -1,0 +1,11 @@
+{
+    "DataManagerOptions": {
+        "DataBaseOptions": {
+            "ConnectionString": "Server = KOROLIVA; Database = AdventureWorks2019; Trusted_Connection = True;"
+        },
+        "StorageOptions": {
+            "SourceDirectory": "C:\\Users\\thela\\source\\repos\\953506\\term3\\dot_net\\lab4\\bin\\Debug\\netcoreapp3.1",
+            "TargetDirectory": "C:\\Users\\thela\\source\\repos\\953506\\term3\\dot_net\\lab3\\SourceDirectory"
+        }
+    }
+}
